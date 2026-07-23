@@ -1,5 +1,5 @@
 import flet as ft
-import random
+from RBT_screen_practice import rbt_view_practice
 
 def main(page: ft.Page):
     page.title = "Algorithm and Data Structure"
@@ -79,15 +79,37 @@ def main(page: ft.Page):
         on_change=lambda e: print("Hints switched to:", e.control.value)
     )
 
+    def route_change(route):
+        page.views.clear()
+        if page.route == "/":
+            page.views.append(ft.View("/", [card_menu], horizontal_alignment=ft.CrossAxisAlignment.CENTER, vertical_alignment=ft.MainAxisAlignment.CENTER))
+        elif page.route == "/rbt_practice":
+            page.views.append(
+                ft.View(
+                    "/rbt_practice",
+                    [rbt_view_practice(page, algorithms_dropdown.value, mode_radio.value, hints_switch.value)],
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    vertical_alignment=ft.MainAxisAlignment.CENTER
+                )
+            )
+        page.update()
+    page.on_route_change = route_change
+
     def start_game(e):
         selected_algorithm = algorithms_dropdown.value
         show_hints = hints_switch.value
+        if selected_algorithm == "Red Black Tree":
+            page.go("/rbt_practice")
+        else:
+            print("Selected algorithm is not implemented yet.")
+            
         print(f"Starting game with {selected_algorithm}, Show Hints: {show_hints}")
         dialog = ft.AlertDialog(
             title=ft.Text("Game Started"),
             content=ft.Text(f"Algorithm: {selected_algorithm}\nShow Hints: {show_hints}"),
             actions=[ft.TextButton(content=ft.Text("OK"), on_click=lambda x: close_dialog(dialog))]
         )
+
         page.overlay.append(dialog)
         dialog.open = True
         page.update()
