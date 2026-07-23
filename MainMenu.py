@@ -2,15 +2,15 @@ import flet as ft
 import random
 
 def main(page: ft.Page):
-    page.title = "Main Menu - Algorithm and Data Structure"
+    page.title = "Algorithm and Data Structure"
     page.theme_mode = ft.ThemeMode.DARK
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.window_width = 800
-    page.window_height = 800
+    page.window_height = 1200
 
     title_text = ft.Text(
-        "Welcome to the Main Menu",
+        "Welcome to Algorithm and Data Structure Game",
         size=30,
         weight=ft.FontWeight.BOLD,
         color=ft.Colors.WHITE
@@ -22,16 +22,55 @@ def main(page: ft.Page):
         color=ft.Colors.WHITE
     )
 
+
+    # algorithms_dropdown = ft.Dropdown(
+    #    width=300,
+    #     label="Select an Algorithm",
+    #     value="Red Black Tree",
+    #     options=[
+    #         ft.dropdown.Option("Red Black Tree"),
+    #         ft.dropdown.Option("opt 2"),
+    #         ft.dropdown.Option("opt 3"),
+    #         ft.dropdown.Option("opt 4"),
+    #     ],
+    # )
+
+    def on_dropdown_select(e):
+        print(f"Chosen algorithm: {algorithms_dropdown.value}")
+
     algorithms_dropdown = ft.Dropdown(
         width=300,
         label="Select an Algorithm",
-        value="RBT",
+        on_select=on_dropdown_select,
         options=[
-            ft.dropdown.Option("RBT"),
-            ft.dropdown.Option("opt 2"),
-            ft.dropdown.Option("opt 3"),
-            ft.dropdown.Option("opt 4"),
+            ft.DropdownOption(
+                key="Red Black Tree",
+                content=ft.Row(
+                    controls=[
+                        ft.Text("Red", color=ft.Colors.RED, weight=ft.FontWeight.BOLD),
+                        ft.Text("Black", color=ft.Colors.BLACK, weight=ft.FontWeight.BOLD),
+                        ft.Text("Tree", color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD),
+                    ],
+                    tight=True
+                )
+            ),
+            ft.DropdownOption("opt 2"),
+            ft.DropdownOption("opt 3"),
+            ft.DropdownOption("opt 4"),
         ],
+    )
+
+
+    mode_radio = ft.RadioGroup(
+        content=ft.Row(
+            controls=[
+                ft.Radio(value="practice", label="Practice Mode (Training)"),
+                ft.Radio(value="ranked", label="Ranked Mode (Points)"),
+            ],
+            alignment=ft.MainAxisAlignment.CENTER,
+            spacing=30
+        ),
+        value="practice" 
     )
 
     hints_switch = ft.Switch(
@@ -76,6 +115,8 @@ def main(page: ft.Page):
                 subtitle_text,
                 ft.Divider(height=20, color=ft.Colors.TRANSPARENT),
                 algorithms_dropdown,
+                ft.Text("Select Game Mode:", size=16, weight=ft.FontWeight.W_500, color=ft.Colors.WHITE),
+                mode_radio,
                 ft.Divider(height=20, color=ft.Colors.TRANSPARENT),
                 hints_switch,
                 ft.Divider(height=20, color=ft.Colors.TRANSPARENT),
