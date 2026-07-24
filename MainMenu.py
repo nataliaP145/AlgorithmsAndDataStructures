@@ -3,12 +3,15 @@ from logging import log
 import flet as ft
 from RBT_screen_practice import rbt_view_practice
 
-ALGORITMHS_INFO = {
+ALGORITHMS_INFO = {
     "Red Black Tree": {
         "description": "A Red-Black Tree is a self-balancing binary search tree where each node has an extra bit for denoting the color of the node, either red or black. It ensures that the tree remains balanced during insertions and deletions.",
         "complexity": {
             "search": "O(log n)",
         }
+    },
+    "opt 2": {
+        "description": "dsc for opt 2"
     }
 }
 
@@ -71,6 +74,20 @@ def main(page: ft.Page):
             ft.DropdownOption("opt 4"),
         ],
     )
+
+    def show_algorithm_info(e):
+        selected = algorithms_dropdown.value
+        info_text = ALGORITHMS_INFO.get(selected, {}).get("description", "No description available.")
+
+        info_dialog = ft.AlertDialog(
+            title=ft.Text(f"{selected} Information"),
+            content=ft.Text(info_text),
+            actions=[ft.TextButton(content=ft.Text("Close"), on_click=lambda e: close_dialog(info_dialog))]
+        )
+
+        page.overlay.append(info_dialog)
+        info_dialog.open = True
+        page.update()
 
 
     mode_radio = ft.RadioGroup(
