@@ -1,5 +1,17 @@
+from logging import log
+
 import flet as ft
 from RBT_screen_practice import rbt_view_practice
+
+ALGORITMHS_INFO = {
+    "Red Black Tree": {
+        "description": "A Red-Black Tree is a self-balancing binary search tree where each node has an extra bit for denoting the color of the node, either red or black. It ensures that the tree remains balanced during insertions and deletions.",
+        "complexity": {
+            "search": "O(log n)",
+        }
+    }
+}
+
 
 def main(page: ft.Page):
     page.title = "Algorithm and Data Structure"
@@ -79,6 +91,8 @@ def main(page: ft.Page):
         on_change=lambda e: print("Hints switched to:", e.control.value)
     )
 
+
+
     def route_change(route):
         page.views.clear()
         if page.route == "/":
@@ -102,7 +116,7 @@ def main(page: ft.Page):
             page.go("/rbt_practice")
         else:
             print("Selected algorithm is not implemented yet.")
-            
+
         print(f"Starting game with {selected_algorithm}, Show Hints: {show_hints}")
         dialog = ft.AlertDialog(
             title=ft.Text("Game Started"),
