@@ -89,6 +89,12 @@ def main(page: ft.Page):
         info_dialog.open = True
         page.update()
 
+    info_button = ft.IconButton(
+        icon=ft.icons.INFO_OUTLINE,
+        icon_color=ft.Colors.WHITE,
+        tooltip="Show Algorithm Instruction",
+        on_click=show_algorithm_info
+    )
 
     mode_radio = ft.RadioGroup(
         content=ft.Row(
