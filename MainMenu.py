@@ -8,6 +8,9 @@ ALGORITHMS_INFO = {
         "description": "A Red-Black Tree is a self-balancing binary search tree where each node has an extra bit for denoting the color of the node, either red or black. It ensures that the tree remains balanced during insertions and deletions.",
         "complexity": {
             "search": "O(log n)",
+            "insert": "O(log n)",
+            "delete": "O(log n)",
+            "build": "O(n log n)"
         }
     },
     "opt 2": {
