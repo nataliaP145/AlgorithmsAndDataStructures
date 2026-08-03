@@ -46,6 +46,35 @@ class RedBlackTree:
         self.history.append((root_clone, msg, highlight_key))
 
 
+    def left_rotate(self, x):
+        y = x.right
+        if y == self.NIL: return
+        
+        x.right = y.left
+        if y.left != self.NIL: y.left.parent = x
+            
+        y.parent = x.parent
+        if x.parent == self.NIL: self.root = y
+        elif x == x.parent.left: x.parent.left = y
+        else: x.parent.right = y
+            
+        y.left = x
+        x.parent = y
+
+    def right_rotate(self, y):
+        x = y.left
+        if x == self.NIL: return
+        
+        y.left = x.right
+        if x.right != self.NIL: x.right.parent = y
+            
+        x.parent = y.parent
+        if y.parent == self.NIL: self.root = x
+        elif y == y.parent.left: y.parent.left = x
+        else: y.parent.right = x
+            
+        x.right = y
+        y.parent = x
 
 def rbt_view_practice(page: ft.Page, algorithm: str, mode: str, hints_enabled: bool):
     page.title = "Red Black Tree Practice"
